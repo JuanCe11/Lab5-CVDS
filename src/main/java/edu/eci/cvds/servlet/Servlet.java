@@ -44,5 +44,32 @@ public class Servlet extends HttpServlet {
         }
         responseWriter.flush();
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	 Writer responseWriter = resp.getWriter();
+         Optional<String> optId = Optional.ofNullable(req.getParameter("id"));
+         String id = optId.isPresent() && !optId.get().isEmpty() ? optId.get() : "-1";
+         int validId=-1;
+         int status = 0;
+         try{
+             validId = Integer.parseInt(id);
+         }catch(NumberFormatException e){
+             status = HttpServletResponse.SC_BAD_REQUEST;
+         }
+         if (status==0) status = (validId < 1 || validId > 200) ? HttpServletResponse.SC_NOT_FOUND :HttpServletResponse.SC_OK;
+         status = (req.getParameter("id") == null)? HttpServletResponse.SC_BAD_REQUEST:status;
+         status = (!optId.isPresent() && status!=HttpServletResponse.SC_BAD_REQUEST)? HttpServletResponse.SC_INTERNAL_SERVER_ERROR:status;
+         resp.setStatus(status);
+         if(status == 200){
+             ArrayList<Todo> todoList = new ArrayList();
+             todoList.add(Service.getTodo(validId));
+             String htmlTable=Service.todosToHTMLTable(todoList);
+             responseWriter.write(htmlTable);
+         }else{
+             responseWriter.write("Error "+status);
+         }
+         responseWriter.flush();
+    }
 }
                   
