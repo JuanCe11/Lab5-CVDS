@@ -50,11 +50,11 @@ public class Servlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	int status =HttpServletResponse.SC_OK;
     	Writer responseWriter=null;
+    	int validId=-1;
     	try {
     		responseWriter = resp.getWriter();
             Optional<String> optId = Optional.ofNullable(req.getParameter("id"));
             String id = optId.isPresent() && !optId.get().isEmpty() ? optId.get() : "-1";
-            int validId=-1;
             try {
             	validId=Integer.parseInt(id);
             }catch(NumberFormatException e) {
@@ -69,7 +69,10 @@ public class Servlet extends HttpServlet {
     		status=HttpServletResponse.SC_BAD_REQUEST;
     	}
     	if(status==200) {
-    		
+    		ArrayList<Todo> todoList = new ArrayList();
+            todoList.add(Service.getTodo(validId));
+            String htmlTable=Service.todosToHTMLTable(todoList);
+            responseWriter.write(htmlTable);
     	}else {
     		responseWriter.write("Error "+status);
     	}
