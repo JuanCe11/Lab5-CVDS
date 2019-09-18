@@ -12,13 +12,13 @@
     <!-usando post si se cambia post por get usa get->
     <form name="ID" action="/pruebas" onsubmit="return validateID()" method="get">
     	iD:<br>
-    	<input type="text" name="id" required><br>
+    	<input type="number" name="id" required><br>
     	<input type="submit" value="Submit">
     </form>
     
     <script>
     function validateID(){
-    	var x,text;
+    	var x;
     	x= document.getElementById("id").value;
     	if(isNaN(x)){
     		alert("ID must be a number");
