@@ -6,12 +6,16 @@
 <h:body>	
 	<h:form id="guess_form">
 		<p:outputLabel value="#{game.numberGuess}" style="display: none;" />
-		<p:inputText id="try" value="#{defaultCommandBean.text}" />
-		<p:outputLabel value="#{game.tries}" />
-		<p:outputLabel value="#{game.status}" />
-		<p:outputLabel value="#{game.score}" />
-		<p:commandButton update="guess_form" value="Try" actionListener="#{game.guess}" />
+                <h3>Intente adivinar el numero entre 1 y 10 </h3>
+		<p:inputText id="try" value="#{game.triedNumber}" />
+                <p:commandButton update="guess_form" value="Try" actionListener="#{game.guess}" />
 		<p:commandButton update="guess_form" value="Reset" actionListener="#{game.restart}" />
+                <h3>Numero de Intentos</h3>
+		<p:outputLabel value="#{game.tries}" />
+                <h3>Score</h3>
+                <p:outputLabel value="#{game.score}" />
+                <h3></h3>
+		<p:outputLabel value="#{game.status}" />
 	</h:form>
 </h:body>
 </html>

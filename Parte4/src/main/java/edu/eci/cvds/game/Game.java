@@ -20,6 +20,7 @@ public class Game {
     private int tries;
     private String status;
     private int score;
+    private int triedNumber;
     
     public Game(){
         Random rand = new Random();
@@ -27,22 +28,19 @@ public class Game {
         tries=0;
         status="Sigue intentando Coca-Cola";
         score=100000;
-    }
-    
-    public void setNumberGuess(int numberGuess){
-        this.numberGuess=numberGuess;
+        triedNumber=0;
     }
     
     public int getTries(){
         return tries;
     }
     
-    public void guess(int value){
+    public void guess(){
         tries++;
-        if(value!=numberGuess){
+        if(triedNumber!=numberGuess){
             score-=10000;
         }else{
-            status="Victoria";
+            status=this.getWinState();
         }
     }
     
@@ -52,6 +50,7 @@ public class Game {
         tries=0;
         status="Sigue intentando Coca-Cola";
         score=100000;
+        triedNumber=0;
     }
     
     public String getStatus(){
@@ -66,8 +65,15 @@ public class Game {
         return numberGuess;
     }
     
+    public int getTriedNumber(){
+        return triedNumber;
+    }
+    
+    public void setTriedNumber(int triedNumber){
+        this.triedNumber=triedNumber;
+    }
+    
     public String getWinState(){
-        String ans=(status.equals("Victoria"))? "Victoria, puntaje " + score:"Sigue intentando Coca-Cola";
-        return ans;
+        return "Victoria se gano "+score + " para la pola";
     }
 }
