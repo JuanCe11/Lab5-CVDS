@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui" 
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head></h:head>
 <h:body>	
 	<h:form id="guess_form">
@@ -16,7 +17,17 @@
                 <p:outputLabel value="#{game.score}" />
                 <h3></h3>
 		<p:outputLabel value="#{game.status}" />
-                <script src="comprobacionRango.js"></script>
+                <p:dataTable var="tries" value="#{game.orderTries}">
+                    <f:facet name="header">
+                        Numbers
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            Numbers Already Tried
+                        </f:facet>
+                            #{tries.intValue()}
+                    </p:column>
+                </p:dataTable>
 	</h:form>
 </h:body>
 </html>

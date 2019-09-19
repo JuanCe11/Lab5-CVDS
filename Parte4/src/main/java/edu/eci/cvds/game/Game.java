@@ -6,16 +6,19 @@
 package edu.eci.cvds.game;
 
 import java.util.Random;
-
+import java.util.LinkedList;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 /**
  *
  * @author 2146124
  */
 @ManagedBean(name = "game")
-@ApplicationScoped
+//@ApplicationScoped
+@SessionScoped 
 public class Game {
+    private LinkedList<Integer> orderTries;
     private int numberGuess;
     private int tries;
     private String status;
@@ -23,10 +26,11 @@ public class Game {
     private int triedNumber;
     
     public Game(){
+        orderTries=new LinkedList<Integer>();
         Random rand = new Random();
         numberGuess= rand.nextInt(10) + 1;
         tries=0;
-        status="Sigue intentando Coca-Cola";
+        status="Sigue intentando";
         score=100000;
         triedNumber=0;
     }
@@ -36,11 +40,19 @@ public class Game {
     }
     
     public void guess(){
-        tries++;
-        if(triedNumber!=numberGuess){
-            score-=10000;
-        }else{
-            status=this.getWinState();
+        if(triedNumber<11 && triedNumber>0){
+            tries++;
+            orderTries.add(triedNumber);
+            if(triedNumber!=numberGuess){
+                if(score-10000<=0){
+                    score=0;
+                    status=this.getLoseState();
+                }else{
+                    score-=10000;
+                }
+            }else{
+                status=this.getWinState();
+            }
         }
     }
     
@@ -48,9 +60,10 @@ public class Game {
         Random rand = new Random();
         numberGuess= rand.nextInt(10) + 1;
         tries=0;
-        status="Sigue intentando Coca-Cola";
+        status="Sigue intentando";
         score=100000;
         triedNumber=0;
+        orderTries.clear();
     }
     
     public String getStatus(){
@@ -75,5 +88,13 @@ public class Game {
     
     public String getWinState(){
         return "Victoria se gano "+score + " para la pola";
+    }
+    
+    public String getLoseState(){
+        return "Perdiste no ganaste nada";
+    }
+    
+    public LinkedList<Integer> getOrderTries(){
+        return orderTries;
     }
 }

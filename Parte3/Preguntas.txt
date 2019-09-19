@@ -1,0 +1,10 @@
+Pregunta 20:
+
+La principal diferencia entre usar GET y usar POST es que el post no muestra los parametros agregados a la URL
+Esto se usa principalmente cuando el usuario no tiene que ver esta informacion ademas de esto al momento de usar
+POST los parametros pueden ser valores muy grandes a diferencia de en el GET.
+
+Pregunta 21:
+
+Se ve los datos segun el ID que se pidio y cada vez que se pide un ID desde la pagina que contiene el recuadro
+Se muestra unicamente la informacion de ese valor.
