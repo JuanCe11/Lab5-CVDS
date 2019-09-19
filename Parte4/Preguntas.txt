@@ -1,0 +1,8 @@
+10.
+C. 
+Con AplicationScoped coinciden los valores en los diferentes computadores y si se realiza un cambio en uno tambien se 
+realiza en el otro pero no se actualiza la pantalla en cambio con SessionScoped no coinciden y si se realiza un cambio en uno
+no se efectua en el otro.
+
+Con AplicationScoped se maneja como 1 sola instancia mientras que con SessionScoped se maneja con n instancias dependiendo
+de cuantas sesiones se cree.
